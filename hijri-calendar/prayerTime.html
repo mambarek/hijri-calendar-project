@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="apple-touch-icon" sizes="57x57" href="./assets/favicons/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="./assets/favicons/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="./assets/favicons/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="./assets/favicons/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="./assets/favicons/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="./assets/favicons/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="./assets/favicons/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="./assets/favicons/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="./assets/favicons/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="./assets/favicons/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="./assets/favicons/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="./assets/favicons/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="./assets/favicons/favicon-16x16.png">
+	<link rel="manifest" href="./assets/favicons/manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="./assets/favicons/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+    <meta charset="utf-8" />
+    <title>Hijri Calendar</title>
+    <!-- The jQuery library is a prerequisite for all jqSuite products -->
+    <script type="text/ecmascript" src="./assets/extern/jquery-3.3.1/jquery-3.3.1.js"></script>
+    <script type="text/ecmascript" src="./assets/extern/jquery-ui-1.12.1/jquery-ui.js"></script>
+
+    <script type="text/ecmascript" src="./assets/js/util.js"></script>
+    <script type="text/ecmascript" src="./assets/js/Hijri.js"></script>
+
+    <!-- We support more than 40 localizations -->
+    <script type="text/ecmascript" src="./assets/extern/jqGrid/js/trirand/i18n/grid.locale-en.js"></script>
+    <!-- This is the Javascript file of jqGrid -->   
+    <script type="text/ecmascript" src="./assets/extern/jqGrid/js/trirand/src/jquery.jqGrid.js"></script>
+    <!-- This is the localization file of the grid controlling messages, labels, etc.
+     A link to a jQuery UI ThemeRoller theme, more than 22 built-in and many more custom -->
+	<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">-->
+    <link rel="stylesheet" href="./assets/extern/bootstrap-4.0.0-dist/css/bootstrap.min.css"/>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/4.4.0/font/octicons.css"/>
+	<!---	
+	<link rel="stylesheet" href="../../../css/iconic/font/css/open-iconic-bootstrap.css">
+ 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> 
+ --->
+    <!-- The link to the CSS that the grid needs -->
+    <link rel="stylesheet" type="text/css" media="screen" href="./assets/extern/jqGrid/css/trirand/ui.jqgrid-bootstrap4.css" />
+
+	<!--
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+ -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+  <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>-->
+    <script src="assets/extern/bootstrap-4.0.0-dist/js/bootstrap.bundle.js"></script>
+<style>
+.ui-jqgrid
+{
+	font-size:0.8rem
+}
+.ui-jqgrid-bdiv{ width: 100%}
+.testClass {
+    background: yellow;
+}
+    .nowCell {
+        background: #4eb305;
+    }
+    .maghribCell{
+        background: #9cc2cb;
+    }
+</style>
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row mt-5">
+        <div class="col-2">
+            <div class="form-group">
+                <label for="month-selection" class="font-weight-bold">Month Hijri</label>
+                <select id="month-selection" onchange="changeMonth()" class="form-control">
+                    <option value="1">Muḥarram</option>
+                    <option value="2">Ṣafar</option>
+                    <option value="3">Rabī‘ al-awwal‎</option>
+                    <option value="4">Rabī‘ ath-thānī </option>
+                    <option value="5">Jumādá al-ūlá</option>
+                    <option value="6">Jumādá al-ākhirah</option>
+                    <option value="7">Rajab</option>
+                    <option value="8">Sha‘bān</option>
+                    <option value="9">Ramaḍān</option>
+                    <option value="10">Shawwāl</option>
+                    <option value="11">Dhū al-Qa‘dah</option>
+                    <option value="12">Dhū al-Ḥijjah</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="form-group">
+                <label for="athan-selection" class="font-weight-bold">Athan</label>
+                <select id="athan-selection" onchange="changeAthan()" class="form-control">
+                    <option value="Makkah.mp3">Adhan Makkah</option>
+                    <option value="Abed_Albase6.mp3">Athan Abed Albase6</option>
+                    <option value="Hamad_Deghreri.mp3">Athan Hamad Deghreri‎</option>
+                </select>
+            </div>
+        </div>
+        <div class="col">
+            <audio id="athanPlayer" preload="auto" controls class="invisible" src="assets/athan/Makkah.mp3" type="audio/mp3">
+            </audio>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-10">
+            <table id="jqGrid" style="width: 100%" ></table>
+            <div id="jqGridPager"></div>
+        </div>
+
+        <div class="col-2">
+            <div style="height: 100px;width: 100%;margin-bottom: 50px">
+                <p style="border-bottom: 1px solid;color: brown;"><span style="font-weight: 700;">Remain time to Salat</span></p>
+                <span id="nextSalatCounter" style="height: 100%;font-size: 3rem;color: brown;"></span>
+            </div>
+            <table id="dayTable" style="width: 150px">
+                <thead>
+                    <tr style="border-bottom: 1px solid;">
+                        <th>Salat</th>
+                        <th>Adhan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+
+            <div style="height: 100px;width: 100%;margin-top: 50px">
+                <p style="border-bottom: 1px solid;color: #0c5460;"><span style="font-weight: 700;">Remain time to Iftar</span></p>
+                <span id="maghribCounter" style="height: 100%;font-size: 4rem;color: #0c5460"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="assets/js/prayerTime.js"></script>
+</body>
+</html>

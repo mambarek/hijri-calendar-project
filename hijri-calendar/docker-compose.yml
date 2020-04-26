@@ -1,0 +1,6 @@
+version: '3'
+services:
+    app:
+        image: mmbarek/hijri-calendar:v5.4
+        ports:
+            - "5555:80"

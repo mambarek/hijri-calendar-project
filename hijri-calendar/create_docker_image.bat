@@ -1,0 +1,1 @@
+docker build -t mmbarek/hijri-calendar:v2 .
