@@ -15,3 +15,13 @@ services:
     - 3005:3005
     depends_on:
       - mongo
+
+  app:
+    build:
+      context: ./hijri-calendar
+      dockerfile: Dockerfile
+    expose:
+      - 80
+    ports:
+    - 3500:80
+

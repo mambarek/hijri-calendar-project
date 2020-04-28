@@ -288,11 +288,11 @@ function fillGrid() {
 
     if(!method) method = 1;
     //var url = 'http://api.aladhan.com/v1/calendarByCity?city=Kaiserslautern&country=de&method=2&month=05&year=2019';
-    var aladhanUrl = 'http://api.aladhan.com/v1/hijriCalendarByCity?city=Kaiserslautern&country=de&method=' + method +'&month=' +
-        selectedMonth +'&year=' + todayHijri.year;
-
+/*    var aladhanUrl = 'http://api.aladhan.com/v1/hijriCalendarByCity?city=Kaiserslautern&country=de&method=' + method +'&month=' +
+        selectedMonth +'&year=' + todayHijri.year;*/
+    let aladhanUrl = 'http://localhost:3005/calendar/hijri/v1/' + selectedMonth;
     xhrGet(aladhanUrl).then(function(data) {
-        var items = data.data;
+        var items = data[0].data;
         var now = new Date();
         var nowIndex=0;
         for(var i=0; i< items.length; i++) {
@@ -324,11 +324,13 @@ function firstLoad() {
     var method = url.searchParams.get("m");
 
     if(!method) method = 1;
-    var aladhanUrl = 'http://api.aladhan.com/v1/hijriCalendarByCity?city=Kaiserslautern&country=de&method=' +
-        method +'&month=' + todayHijri.month +'&year=' + todayHijri.year;
-
+/*    var aladhanUrl = 'http://api.aladhan.com/v1/hijriCalendarByCity?city=Kaiserslautern&country=de&method=' +
+        method +'&month=' + todayHijri.month +'&year=' + todayHijri.year;*/
+    //let aladhanUrl = 'http://api:3005/calendar/hijri/v1/10';
+    let aladhanUrl = 'http://localhost:3005/calendar/hijri/v1/' + todayHijri.month;
     xhrGet(aladhanUrl).then(function(data) {
-        var items = data.data;
+        //var items = data.data;
+        let items = data[0].data;
         var now = new Date();
         var nowIndex=0;
         for(var i=0; i< items.length; i++) {
