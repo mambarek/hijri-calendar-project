@@ -43,7 +43,7 @@
  --->
     <!-- The link to the CSS that the grid needs -->
     <link rel="stylesheet" type="text/css" media="screen" href="./assets/extern/jqGrid/css/trirand/ui.jqgrid-bootstrap4.css" />
-    <link rel="stylesheet" type="text/css" media="screen" href="./assets/css/style.css" />
+
 	<!--
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
  -->
@@ -68,13 +68,43 @@
 </style>
 </head>
 <body>
-
+<header>
+    <div class="container-fluid py-5">
+        <div class="d-flex">
+            <div class="form-group" style="width: 250px">
+                <label for="year-selection1" class="font-weight-bold">Year Hijri</label>
+                <select id="year-selection1" onchange="changeYear()" class="form-control">
+                    <option value="1441">1441</option>
+                    <option value="1442">1442</option>
+                    <option value="1443">1443‎</option>
+                    <option value="1444">1444</option>
+                    <option value="1445">1445</option>
+                    <option value="1446">1446‎</option>
+                    <option value="1447">1447</option>
+                    <option value="1448">1448</option>
+                    <option value="1449">1449‎</option>
+                    <option value="1450">1450‎</option>
+                    <option value="1451">1451</option>
+                    <option value="1452">1452</option>
+                    <option value="1453">1453‎</option>
+                    <option value="1454">1454</option>
+                    <option value="1455">1455</option>
+                    <option value="1456">1456‎</option>
+                    <option value="1457">1457</option>
+                    <option value="1458">1458</option>
+                    <option value="1459">1459‎</option>
+                    <option value="1460">1460‎</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</header>
 <div class="container-fluid">
     <div class="row mt-5">
         <div class="col-2">
             <div class="form-group">
                 <label for="year-selection" class="font-weight-bold">Year Hijri</label>
-                <select id="year-selection" onchange="changeHijriYear()" class="form-control">
+                <select id="year-selection" onchange="changeYear()" class="form-control">
                     <option value="1441">1441</option>
                     <option value="1442">1442</option>
                     <option value="1443">1443‎</option>
@@ -127,11 +157,16 @@
                 </select>
             </div>
         </div>
-
-        <div class="col">
+        <div class="col-1">
             <div class="d-flex align-items-center" style="height: 100%">
-                <audio id="athanPlayer" preload="auto" controls  src="assets/athan/Makkah.mp3" type="audio/mp3"></audio>
+                <div class="pt-3">
+                    <button class="btn btn-primary" >Stop</button>
+                </div>
             </div>
+        </div>
+        <div class="col">
+            <audio id="athanPlayer" preload="auto" controls class="invisible" src="assets/athan/Makkah.mp3" type="audio/mp3">
+            </audio>
         </div>
     </div>
     <div class="row mt-2">

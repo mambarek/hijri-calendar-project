@@ -7,6 +7,7 @@ const adhanService = require("./aladhanService")
 
 const calenderDb = "calender_db";
 const collection = "hijri";
+const api_version = "v2";
 
 let app = express();
 app.use(cors());
@@ -30,14 +31,20 @@ app.listen(3005, () => {
     dbService.initDb(calenderDb);
     dbService.createDBCollection(calenderDb, collection);
 
-    adhanService.importHijriCalendar(calenderDb, collection, 1441);
+    adhanService.importHijriCalendar(calenderDb, collection);
 });
 
-app.get("/calendar/hijri/v1/", (req, res) => {
+app.get(`/calendar/hijri/${api_version}/`, (req, res) => {
     dbService.findAll(calenderDb, collection, res);
 });
 
-app.get("/calendar/hijri/v1/:month", (req, res) => {
-    console.log({month: req.params.month});
-    dbService.queryObject(calenderDb, collection, {month: req.params.month}, res);
+app.get(`/calendar/hijri/${api_version}/:month/:year`, (req, res) => {
+    //dbService.queryObject(calenderDb, collection, {year: req.params.year}, res);
+
+    dbService.queryObjectJson(calenderDb, collection, {year: Number(req.params.year)}).then(data => {
+        //console.log("*** JSON Promise result: ", data);
+        let monthData = data[0].data.filter(monthData => monthData.month === req.params.month)[0].data;
+        console.log("*** JSON Promise result: ", monthData);
+        res.json(monthData);
+    });
 });
