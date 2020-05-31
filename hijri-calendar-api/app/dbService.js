@@ -1,7 +1,7 @@
 const connect = require("mongodb");
 const MongoClient = connect.MongoClient;
-//var mongoBaseUrl = "mongodb://localhost:27017/";
-var mongoBaseUrl = "mongodb://mongo:27017/";
+var mongoBaseUrl = "mongodb://localhost:27017/";
+//var mongoBaseUrl = "mongodb://mongo:27017/";
 
 createDB = (dbName) => {
     const dbUrl = mongoBaseUrl + dbName;
@@ -16,6 +16,7 @@ exports.createDBCollection = (dbName, collection) => {
     MongoClient.connect(mongoBaseUrl, function (err, db) {
         if (err) throw err;
         var dbo = db.db(dbName);
+        dbo.collection(collection).drop();
         dbo.createCollection(collection, function (err, res) {
             if (err) throw err;
             console.log("-- Collection created! " + collection);
@@ -71,7 +72,23 @@ exports.queryObject = (dbName, collection, query, response) => {
             //console.log(result);
             response.json(result);
             db.close();
+        });
+    });
+};
 
+exports.queryObjectJson = (dbName, collection, query) => {
+
+    return new Promise((resolve, reject) => {
+        MongoClient.connect(mongoBaseUrl, function (err, db) {
+            if (err) throw err;
+            var dbo = db.db(dbName);
+            dbo.collection(collection).find(query).toArray(function (err, result) {
+                if (err) reject(err);
+                console.log(" queryjson: query", query);
+                console.log(" queryjson: result", result);
+                resolve(result);
+                db.close();
+            });
         });
     });
 };

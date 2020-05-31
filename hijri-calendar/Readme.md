@@ -1,8 +1,8 @@
 ##Hijri Calendar
 
->\> Docker build -t mmbarek/hijri-calendar:v5.4
+>\> Docker build --rm -t mmbarek/hijri-calendar:v5.5 .
 
->\> Docker push
+>\> Docker push mmbarek/hijri-calendar:v5.5
 
 >\> docker-compose up -d
 

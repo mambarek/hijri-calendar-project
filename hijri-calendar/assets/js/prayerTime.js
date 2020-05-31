@@ -8,19 +8,17 @@ var cachedDayData;
 var msecPerMinute = 1000 * 60;
 var msecPerHour = msecPerMinute * 60;
 var msecPerDay = msecPerHour * 24;
-var selectedMonth = "1";
+var selectedMonth = HijriJS.today().month;
+var selectedYear = HijriJS.today().year;
 var selectedAthan = "Makkah.mp3";
 var athanPth = "assets/athan/";
+const apiUrl = "http://localhost:3005/calendar/hijri/v2/";
 
-function changeAthan(){
-    selectedAthan = $("#athan-selection").val();
-
-    var audio = $("#athanPlayer");
-    audio.attr("src", athanPth + selectedAthan);
-    audio[0].pause();
-    audio[0].load();
-    audio[0].play();
+function changeHijriYear(){
+    selectedYear = $("#year-selection").val();
+    fillGrid();
 }
+
 function changeMonth(){
     selectedMonth = $("#month-selection").val();
     fillGrid();
@@ -37,10 +35,30 @@ function getCurrentDateTimeFrom(timeString){
 function playAdhan(){
     var audio = $("#athanPlayer");
     audio.attr("src", athanPth + selectedAthan);
+    //audio[0].pause();
+    //audio[0].load();
+    audio[0].play();
+}
+
+function pauseAdhan(){
+    var audio = $("#athanPlayer");
+    audio[0].pause();
+}
+
+function stopAdhan(){
+    var audio = $("#athanPlayer");
+    audio[0].pause();
+    audio[0].load();
+}
+
+function changeAdhan(){
+    selectedAthan = $("#athan-selection").val();
+
+    var audio = $("#athanPlayer");
+    audio.attr("src", athanPth + selectedAthan);
     audio[0].pause();
     audio[0].load();
     audio[0].play();
-    $("#athanPlayer")[0].play();
 }
 
 function setTimerToDate(targetDate, selector){
@@ -239,7 +257,7 @@ function dayFormatter (cellvalue, options, rowObject){
     return cellvalue.weekday.en;
 }
 // formatCol = function (pos, rowInd, tv, rawObject, rowId, rdata)
-function createGrid(data, rowsPerPage){
+function createGrid(data, rowsPerPage){console.log("Create grid with items: ", data);
     $("#jqGrid").jqGrid({
         datatype: "local",
         data: data,
@@ -290,17 +308,17 @@ function fillGrid() {
     //var url = 'http://api.aladhan.com/v1/calendarByCity?city=Kaiserslautern&country=de&method=2&month=05&year=2019';
 /*    var aladhanUrl = 'http://api.aladhan.com/v1/hijriCalendarByCity?city=Kaiserslautern&country=de&method=' + method +'&month=' +
         selectedMonth +'&year=' + todayHijri.year;*/
-    let aladhanUrl = 'http://localhost:3005/calendar/hijri/v1/' + selectedMonth;
+    let aladhanUrl = `${apiUrl}${selectedMonth}/${selectedYear}`;
     xhrGet(aladhanUrl).then(function(data) {
-        var items = data[0].data;
+        var items = data;
         var now = new Date();
         var nowIndex=0;
         for(var i=0; i< items.length; i++) {
             var item = items[i];
             var date = new Date(item.date.readable);
             //if (item.date.gregorian.date.startsWith(now.getDate())) {
-            if(now.getDate() == date.getDate() && now.getMonth() == date.getMonth() &&
-                now.getFullYear() == date.getFullYear()){
+            if(now.getDate() === date.getDate() && now.getMonth() === date.getMonth() &&
+                now.getFullYear() === date.getFullYear()){
                 nowIndex = i;
                 break;
             }
@@ -327,10 +345,13 @@ function firstLoad() {
 /*    var aladhanUrl = 'http://api.aladhan.com/v1/hijriCalendarByCity?city=Kaiserslautern&country=de&method=' +
         method +'&month=' + todayHijri.month +'&year=' + todayHijri.year;*/
     //let aladhanUrl = 'http://api:3005/calendar/hijri/v1/10';
-    let aladhanUrl = 'http://localhost:3005/calendar/hijri/v1/' + todayHijri.month;
+    let aladhanUrl = `${apiUrl}${selectedMonth}/${selectedYear}`;
+    //let aladhanUrl = apiUrl + todayHijri.month;
     xhrGet(aladhanUrl).then(function(data) {
+        console.log("API url: " + aladhanUrl);
+        console.log("Data from api ", data);
         //var items = data.data;
-        let items = data[0].data;
+        let items = data;
         var now = new Date();
         var nowIndex=0;
         for(var i=0; i< items.length; i++) {
