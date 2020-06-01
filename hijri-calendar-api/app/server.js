@@ -1,4 +1,4 @@
-
+require('dotenv').config();
 const express = require("express")
 const cors = require('cors')
 const bodyParser = require("body-parser")
@@ -24,9 +24,8 @@ app.use(function(req, res, next) {
 
 app.get("/", (req, res) => res.send('Hello World!'));
 
-app.listen(3005, () => {
-    console.log('server started - 3005');
-    dbService.initDb("mydb");
+app.listen(process.env.SERVER_PORT, () => {
+    console.log('server started on Port - ' + process.env.SERVER_PORT);
 
     dbService.initDb(calenderDb);
     dbService.createDBCollection(calenderDb, collection);

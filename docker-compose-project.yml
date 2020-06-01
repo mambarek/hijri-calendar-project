@@ -1,0 +1,27 @@
+version: "3"
+services:
+  mongo:
+    image: mongo
+    ports:
+    - "27017:27017"
+
+  api:
+    build:
+      context: ./hijri-calendar-api
+      dockerfile: Dockerfile
+    expose:
+      - 3005
+    ports:
+    - 3005:3005
+    depends_on:
+      - mongo
+
+  app:
+    build:
+      context: ./hijri-calendar
+      dockerfile: Dockerfile
+    expose:
+      - 80
+    ports:
+    - 3500:80
+

@@ -1,11 +1,13 @@
+require('dotenv').config();
 const connect = require("mongodb");
 const MongoClient = connect.MongoClient;
-var mongoBaseUrl = "mongodb://localhost:27017/";
-//var mongoBaseUrl = "mongodb://mongo:27017/";
+const mongo_host = process.env.MONGO_HOST;
+const mongo_port = process.env.MONGO_PORT;
+const mongoBaseUrl = `mongodb://${mongo_host}:${mongo_port}/`;
 
 createDB = (dbName) => {
     const dbUrl = mongoBaseUrl + dbName;
-    MongoClient.connect(dbUrl, function (err, db) {
+    return MongoClient.connect(dbUrl, function (err, db) {
         if (err) throw err;
         console.log("-- Database created! " + dbName);
         db.close();
@@ -13,7 +15,7 @@ createDB = (dbName) => {
 };
 
 exports.createDBCollection = (dbName, collection) => {
-    MongoClient.connect(mongoBaseUrl, function (err, db) {
+    return MongoClient.connect(mongoBaseUrl, function (err, db) {
         if (err) throw err;
         var dbo = db.db(dbName);
         dbo.collection(collection).drop();
@@ -26,7 +28,7 @@ exports.createDBCollection = (dbName, collection) => {
 };
 
 exports.insertObject = (dbName, collection, myobj) => {
-    MongoClient.connect(mongoBaseUrl, function (err, db) {
+    return MongoClient.connect(mongoBaseUrl, function (err, db) {
         if (err) throw err;
         var dbo = db.db(dbName);
         dbo.collection(collection).insertOne(myobj, function (err, res) {
@@ -38,7 +40,7 @@ exports.insertObject = (dbName, collection, myobj) => {
 };
 
 exports.findOne = (dbName, collection) => {
-    MongoClient.connect(mongoBaseUrl, function (err, db) {
+    return MongoClient.connect(mongoBaseUrl, function (err, db) {
         if (err) throw err;
         var dbo = db.db(dbName);
         dbo.collection(collection).findOne({}, function (err, res) {
@@ -50,7 +52,7 @@ exports.findOne = (dbName, collection) => {
 };
 
 exports.findAll = (dbName, collection, response) => {
-    MongoClient.connect(mongoBaseUrl, function (err, db) {
+    return MongoClient.connect(mongoBaseUrl, function (err, db) {
         if (err) throw err;
         var dbo = db.db(dbName);
         dbo.collection(collection).find({}).toArray(function(err, result) {
@@ -64,7 +66,7 @@ exports.findAll = (dbName, collection, response) => {
 
 exports.queryObject = (dbName, collection, query, response) => {
 
-    MongoClient.connect(mongoBaseUrl, function (err, db) {
+    return MongoClient.connect(mongoBaseUrl, function (err, db) {
         if (err) throw err;
         var dbo = db.db(dbName);
         dbo.collection(collection).find(query).toArray(function (err, result) {

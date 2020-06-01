@@ -3,25 +3,25 @@ services:
   mongo:
     image: mongo
     ports:
-    - "27017:27017"
+    - ${MONGO_PORT}:${MONGO_PORT}
 
   api:
-    build:
-      context: ./hijri-calendar-api
-      dockerfile: Dockerfile
+    image: mmbarek/hijri-calendar-api:${API_TAG}
     expose:
-      - 3005
+      - ${API_SERVER_PORT}
     ports:
-    - 3005:3005
+      - ${API_SERVER_PORT}:${API_SERVER_PORT}
     depends_on:
       - mongo
-
+    environment:
+      - SERVER_PORT=${API_SERVER_PORT}
+      - MONGO_HOST
+      - MONGO_PORT
   app:
-    build:
-      context: ./hijri-calendar
-      dockerfile: Dockerfile
+    image: mmbarek/hijri-calendar:${APP_TAG}
     expose:
       - 80
     ports:
-    - 3500:80
+      - ${APP_SERVER_PORT}:80
+
 
