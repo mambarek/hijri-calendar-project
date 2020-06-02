@@ -3,10 +3,10 @@ const fetch = require('node-fetch');
 const dbService = require("./dbService");
 
 //const url = "http://api.aladhan.com/v1/hijriCalendarByCity?city=Kaiserslautern&country=de&method=1&month=10&year=1441";
-const adhanServiceurl = "http://api.aladhan.com/v1/hijriCalendarByCity?city=Kaiserslautern&country=de&method=1";
+const adhanServiceurl = ${ADHAN_API_URL};
 
 exports.importHijriCalendar = async (calenderDb, collection) => {
-    for(year=1441; year <1461; year++){
+    for(year=${HIJRI_YEAR_RANGE_BEGIN}; year < ${HIJRI_YEAR_RANGE_END}; year++){
        var promise = importHijriYear(calenderDb, collection, year);
 
        promise.then(yearData => {
